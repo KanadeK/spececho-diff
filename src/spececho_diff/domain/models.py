@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -9,13 +9,13 @@ VERSION = "0.1.0"
 SENSITIVE_HEADER_NAMES = {"authorization", "cookie", "x-api-key", "x-auth-token"}
 
 
-class Severity(str, Enum):
+class Severity(StrEnum):
     info = "info"
     warning = "warning"
     breaking = "breaking"
 
 
-class DifferenceKind(str, Enum):
+class DifferenceKind(StrEnum):
     missing_field = "missing_field"
     type_change = "type_change"
     enum_change = "enum_change"
