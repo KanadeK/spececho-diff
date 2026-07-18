@@ -18,7 +18,7 @@ jobs:
       - run: python -m pip install -e '.[dev]'
       - run: python scripts/verify.py
       - run: python scripts/package_release.py
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: spececho-release-assets
           path: dist-release/
