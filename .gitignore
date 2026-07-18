@@ -1,0 +1,16 @@
+.coverage
+.env
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+__pycache__/
+*.egg-info/
+build/
+coverage/
+dist/
+dist-release/
+htmlcov/
+node_modules/
+site/
+tmp/
+
