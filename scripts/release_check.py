@@ -8,6 +8,11 @@ from pathlib import Path
 from spececho_diff.domain.models import VERSION
 
 
+def _git_args(*args: str) -> list[str]:
+    repo = Path.cwd().as_posix()
+    return ["git", "-c", f"safe.directory={repo}", *args]
+
+
 def _capture(command: list[str]) -> str:
     return subprocess.check_output(command, text=True, encoding="utf-8").strip()
 
@@ -18,7 +23,7 @@ def _run(command: list[str]) -> None:
 
 
 def main() -> int:
-    status = _capture(["git", "status", "--short"])
+    status = _capture(_git_args("status", "--short"))
     if status:
         print("worktree is not clean")
         print(status)
@@ -49,8 +54,8 @@ def main() -> int:
             if forbidden.search(text):
                 print(f"forbidden marker found in {path}")
                 return 1
-    author = _capture(["git", "config", "--local", "user.name"])
-    email = _capture(["git", "config", "--local", "user.email"])
+    author = _capture(_git_args("config", "--local", "user.name"))
+    email = _capture(_git_args("config", "--local", "user.email"))
     if author != "KanadeK" or not email.endswith("+KanadeK@users.noreply.github.com"):
         print(f"unexpected git identity: {author} <{email}>")
         return 1
