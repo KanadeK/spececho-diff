@@ -1,0 +1,73 @@
+openapi: 3.0.3
+info:
+  title: SpecEcho Petstore Fixture
+  version: 0.1.0
+paths:
+  /pets/1:
+    get:
+      operationId: getPet
+      responses:
+        "200":
+          description: Pet detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pet"
+  /pets:
+    get:
+      operationId: listPets
+      responses:
+        "200":
+          description: Pet list
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items, count]
+                properties:
+                  count:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Pet"
+  /orders/1:
+    get:
+      operationId: getOrder
+      responses:
+        "200":
+          description: Order detail
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [id, petId, status, total]
+                properties:
+                  id:
+                    type: integer
+                  petId:
+                    type: integer
+                  status:
+                    type: string
+                    enum: [open, paid, shipped]
+                  total:
+                    type: number
+components:
+  schemas:
+    Pet:
+      type: object
+      required: [id, name, species, status]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        species:
+          type: string
+          enum: [cat, dog, bird]
+        status:
+          type: string
+          enum: [available, adopted]
+        age:
+          type: integer
+
